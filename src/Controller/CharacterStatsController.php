@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Config\Builder\Method;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use \Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,7 +18,7 @@ class CharacterStatsController extends AbstractController
     }
 
     #[Route('/character/stats/carac', name: 'carac_character_stats')]
-    #[Method('GET')]
+
     public function getCaracteristiques() {
         $carac = [
             ['id' => 1, 'name' => 'force', 'value' => 12],
