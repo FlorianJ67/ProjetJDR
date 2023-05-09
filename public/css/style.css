@@ -1,0 +1,92 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Anek Gujarati', sans-serif;
+}
+:root {
+    --colorOne: rgb(190, 190, 190);
+    --colorTwo: rgb(219, 219, 219);
+    --colorThree: rgb(79, 72, 85);
+    --colorFour: rgb(54, 54, 54);
+}
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--colorOne);
+    height: 6vh;
+}
+header nav ul {
+    display: flex;
+}
+/* endHeader */
+/* Main */
+main {
+    display: flex;
+    flex-direction: row;
+    height: 94vh;
+}
+#main {
+    width: 80%;
+}
+#sideBar {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--colorFour);
+}
+#sideBar a {
+    color: var(--colorTwo);
+    text-decoration: none;
+}
+#menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--colorThree);
+    margin: 2%;
+    padding: 3%;
+}
+#menu a {
+    padding: 4%;
+    width: 90%;
+    background-color: black;
+    margin: 2% 0;
+    border-radius: 12px 0 12px 0;
+    text-align: center;
+    font-weight: bold;
+}
+#message {
+    display: flex;
+    flex-direction: column;
+    height: -webkit-fill-available;
+    margin: 2%;
+}
+#message>div:first-child {
+    height: -webkit-fill-available;
+    background-color: var(--colorTwo);
+}
+#message form {
+    margin-top: 2%;
+}
+#message form textarea {
+    background-color: var(--colorTwo);
+    width: 97%;
+    max-width: 97%;
+    min-width: 97%;
+    min-height: 18px;
+}
+#message form:last-child>div {
+    display: flex;
+    justify-content: flex-end;
+}
+#message form button[type=submit] {
+    border-radius: 12px 0 12px 0;
+    border: none;
+    text-align: center;
+    font-weight: bold;
+    background-color: var(--colorTwo);
+    padding: 4%;
+}
+/* endMain */

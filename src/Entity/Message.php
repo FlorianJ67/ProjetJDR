@@ -15,7 +15,7 @@ class Message
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Content = null;
+    private ?string $content = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $CreationDate = null;
@@ -34,12 +34,12 @@ class Message
 
     public function getContent(): ?string
     {
-        return $this->Content;
+        return $this->content;
     }
 
-    public function setContent(string $Content): self
+    public function setContent(string $content): self
     {
-        $this->Content = $Content;
+        $this->content = $content;
 
         return $this;
     }
