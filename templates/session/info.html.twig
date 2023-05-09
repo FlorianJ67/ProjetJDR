@@ -7,6 +7,9 @@
 
     </div>
     <div id="sideBar">
+        <div id="toggleSideBar">
+            <a href="">< <br> <</a>
+        </div>
         <div id="menu">
             <a href="">Equipe</a>
             <a href="">Carte</a>
@@ -16,8 +19,10 @@
         </div>
         <div id="message">
             <div>
-
+                {# foreach message in messages #}
             </div>
+            
+            {# MessagForm #}
             {{ form_start(formAddMessage) }}
                 {{ form_widget(formAddMessage.content) }}
             {{ form_end(formAddMessage) }}

@@ -13,11 +13,34 @@ body {
 header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: var(--colorOne);
     height: 6vh;
+    padding: 0 1.5%;
 }
 header nav ul {
     display: flex;
+    list-style: none;
+}
+header a {
+    text-decoration: none;
+    color: var(--colorTwo);
+    transition: 0.2s;
+}
+#user {
+    padding: 15px;
+    margin: 2% 0;
+    background-color: var(--colorThree);
+    border-radius: 12px 0;
+    transition: 0.2s;
+}
+#user:hover {
+    transition: 0.2s;
+    background-color: var(--colorTwo);
+}
+#user:hover a {
+    color: var(--colorThree);
+    transition: 0.2s;
 }
 /* endHeader */
 /* Main */
@@ -35,10 +58,19 @@ main {
     flex-direction: column;
     justify-content: space-between;
     background-color: var(--colorFour);
+    position: relative;
 }
 #sideBar a {
     color: var(--colorTwo);
     text-decoration: none;
+}
+#sideBar #toggleSideBar {
+    position: absolute;
+    left: -22.5px;
+    background-color: var(--colorFour);
+    width: 22.5px;
+    border-radius: 0 0 0 8px;
+    padding: 1%;
 }
 #menu {
     display: flex;
@@ -53,9 +85,15 @@ main {
     width: 90%;
     background-color: black;
     margin: 2% 0;
-    border-radius: 12px 0 12px 0;
+    border-radius: 12px 0;
     text-align: center;
     font-weight: bold;
+    transition: 0.2s;
+}
+#menu a:hover {
+    color: black;
+    background-color: var(--colorTwo);
+    transition: 0.2s;
 }
 #message {
     display: flex;
@@ -66,27 +104,33 @@ main {
 #message>div:first-child {
     height: -webkit-fill-available;
     background-color: var(--colorTwo);
+    overflow: auto;
 }
 #message form {
     margin-top: 2%;
 }
 #message form textarea {
     background-color: var(--colorTwo);
-    width: 97%;
-    max-width: 97%;
-    min-width: 97%;
+    width: 98%;
+    max-width: 98%;
+    min-width: 98%;
     min-height: 18px;
+    max-height: 150px;
 }
 #message form:last-child>div {
     display: flex;
     justify-content: flex-end;
 }
 #message form button[type=submit] {
-    border-radius: 12px 0 12px 0;
+    border-radius: 12px 0;
     border: none;
     text-align: center;
     font-weight: bold;
     background-color: var(--colorTwo);
     padding: 4%;
+}
+#message form button[type=submit]:hover {
+    color: var(--colorTwo);
+    background-color: rgb(31, 110, 31);
 }
 /* endMain */

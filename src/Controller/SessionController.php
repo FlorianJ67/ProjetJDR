@@ -18,8 +18,8 @@ class SessionController extends AbstractController
         ]);
     }
 
-    #[Route('/session/{id}', name: 'info_session')]
-    // #[IsGranted("ROLE_USER")]
+    #[Route('/session/{idsession}', name: 'info_session')]
+    #[ParamConverter("session", options:["mapping" => ["idsession" => "id"]])]
     public function info(Session $session): Response
     {
         $form = $this->createForm(messageType::class);
