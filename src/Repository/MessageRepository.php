@@ -39,6 +39,22 @@ class MessageRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Message[] Returns an array of Message objects
+     */
+    public function findMessageBySession($session): array
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.session = :session')
+            ->setParameter('session', $session)
+            ->orderBy('m.creationDate', 'ASC')
+            ->setMaxResults(50)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
 //    /**
 //     * @return Message[] Returns an array of Message objects
 //     */

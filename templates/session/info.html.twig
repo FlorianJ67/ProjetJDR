@@ -19,10 +19,17 @@
         </div>
         <div id="message">
             <div>
-                {# foreach message in messages #}
+                {% for message in session.messages %}
+                <div title="{{ message.creationDate | date("\\l\\e m/d/Y à h\\hm s\\s") }}">
+                    <div class="user">
+                        {{ message.author.id }}
+                    </div>
+                    {{ message.content }} 
+                </div>
+                {% endfor %}
             </div>
             
-            {# MessagForm #}
+            {# MessageForm #}
             {{ form_start(formAddMessage) }}
                 {{ form_widget(formAddMessage.content) }}
             {{ form_end(formAddMessage) }}
