@@ -22,8 +22,19 @@
                     <li></li>
                 </ul>
             </nav>
-            <div id="user">
-                <a href="">se connecter</a>
+            <div>
+                {% if app.user %}
+                    <div class="user">
+                        <a href="{{ path('app_logout') }}">se déconnecter</a>
+                    </div>
+                {% else %}
+                    <div class="user">
+                        <a href="{{ path('app_register') }}">s'inscrire</a>
+                    </div>
+                    <div class="user">
+                        <a href="{{ path('app_login') }}">se connecter</a>
+                    </div>
+                {% endif %}
             </div>
         </header>
         <main>

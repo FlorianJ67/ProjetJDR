@@ -21,6 +21,21 @@ class CharacterStats
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'characterStats')]
     private Collection $sessionUser;
 
+    #[ORM\Column]
+    private array $info = [];
+
+    #[ORM\Column(nullable: true)]
+    private array $caracteristique = [];
+
+    #[ORM\Column(nullable: true)]
+    private array $competence = [];
+
+    #[ORM\Column(nullable: true)]
+    private array $inventaire = [];
+
+    #[ORM\Column(nullable: true)]
+    private array $statsAdditionnel = [];
+
     public function __construct()
     {
         $this->session = new ArrayCollection();
@@ -82,6 +97,66 @@ class CharacterStats
     public function removeSessionUser(User $sessionUser): self
     {
         $this->sessionUser->removeElement($sessionUser);
+
+        return $this;
+    }
+
+    public function getInfo(): array
+    {
+        return $this->info;
+    }
+
+    public function setInfo(array $info): self
+    {
+        $this->info = $info;
+
+        return $this;
+    }
+
+    public function getCaracteristique(): array
+    {
+        return $this->caracteristique;
+    }
+
+    public function setCaracteristique(?array $caracteristique): self
+    {
+        $this->caracteristique = $caracteristique;
+
+        return $this;
+    }
+
+    public function getCompetence(): array
+    {
+        return $this->competence;
+    }
+
+    public function setCompetence(?array $competence): self
+    {
+        $this->competence = $competence;
+
+        return $this;
+    }
+
+    public function getInventaire(): array
+    {
+        return $this->inventaire;
+    }
+
+    public function setInventaire(?array $inventaire): self
+    {
+        $this->inventaire = $inventaire;
+
+        return $this;
+    }
+
+    public function getStatsAdditionnel(): array
+    {
+        return $this->statsAdditionnel;
+    }
+
+    public function setStatsAdditionnel(?array $statsAdditionnel): self
+    {
+        $this->statsAdditionnel = $statsAdditionnel;
 
         return $this;
     }

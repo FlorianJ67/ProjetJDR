@@ -2,16 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Message;
+use \Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\Session;
 use App\Form\MessageType;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class SessionController extends AbstractController
 {

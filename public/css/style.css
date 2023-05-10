@@ -27,18 +27,21 @@ header a {
     color: var(--colorTwo);
     transition: 0.2s;
 }
-#user {
+header>div:last-child {
+    display: flex;
+}
+.user {
     padding: 15px;
-    margin: 2% 0;
+    margin: 2% 3.5px;
     background-color: var(--colorThree);
     border-radius: 12px 0;
     transition: 0.2s;
 }
-#user:hover {
+.user:hover {
     transition: 0.2s;
     background-color: var(--colorTwo);
 }
-#user:hover a {
+.user:hover a {
     color: var(--colorThree);
     transition: 0.2s;
 }

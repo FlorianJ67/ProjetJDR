@@ -21,8 +21,8 @@
             <div>
                 {% for message in session.messages %}
                 <div title="{{ message.creationDate | date("\\l\\e m/d/Y à h\\hm s\\s") }}">
-                    <div class="user">
-                        {{ message.author.id }}
+                    <div class="player">
+                        {{ message.author.pseudo }}
                     </div>
                     {{ message.content }} 
                 </div>
