@@ -18,10 +18,6 @@ class Session
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'session')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?CharacterStats $characterStats = null;
-
     #[ORM\OneToMany(mappedBy: 'session', targetEntity: Message::class)]
     private Collection $messages;
 
@@ -47,18 +43,6 @@ class Session
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getCharacterStats(): ?CharacterStats
-    {
-        return $this->characterStats;
-    }
-
-    public function setCharacterStats(?CharacterStats $characterStats): self
-    {
-        $this->characterStats = $characterStats;
 
         return $this;
     }

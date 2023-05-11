@@ -32,9 +32,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\ManyToMany(targetEntity: CharacterStats::class, mappedBy: 'sessionUser')]
-    private Collection $characterStats;
-
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Message::class)]
     private Collection $messages;
 
@@ -46,7 +43,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->characterStats = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->sessions = new ArrayCollection();
     }
@@ -119,33 +115,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    /**
-     * @return Collection<int, CharacterStats>
-     */
-    public function getCharacterStats(): Collection
-    {
-        return $this->characterStats;
-    }
-
-    public function addCharacterStat(CharacterStats $characterStat): self
-    {
-        if (!$this->characterStats->contains($characterStat)) {
-            $this->characterStats->add($characterStat);
-            $characterStat->addSessionUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCharacterStat(CharacterStats $characterStat): self
-    {
-        if ($this->characterStats->removeElement($characterStat)) {
-            $characterStat->removeSessionUser($this);
-        }
-
-        return $this;
     }
 
     /**

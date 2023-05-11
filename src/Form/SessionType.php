@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\CharacterStats;
 use App\Entity\Session;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,10 +17,6 @@ class SessionType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom de la Session'
-            ])
-            ->add('characterStats', EntityType::class, [
-                'label' => 'Fiche Personnage',
-                'class' => CharacterStats::class
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Envoyer'
