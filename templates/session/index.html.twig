@@ -10,5 +10,6 @@
     {% endfor %}
     {{ form_start(formAddSession) }}
         {{ form_row(formAddSession.name) }}
+        <a href="{{ path('add_character_stats') }}">Créer un squelette de fiche Personnage</a>
     {{ form_end(formAddSession) }}
 {% endblock %}

@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\CharacterStatsType;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use \Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CharacterStatsController extends AbstractController
 {
@@ -14,6 +17,28 @@ class CharacterStatsController extends AbstractController
     {
         return $this->render('character_stats/index.html.twig', [
             'controller_name' => 'CharacterStatsController',
+        ]);
+    }
+
+    #[Route('/character/stats/add', name: 'add_character_stats')]
+    public function addCharacterStats(ManagerRegistry $doctrine, Request $request): Response
+    {
+
+        // Formulaire de création de Fiche Personnage
+        $form = $this->createForm(CharacterStatsType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $characterStats = $form->getData();
+            $entityManager = $doctrine->getManager();
+
+            $entityManager->persist($characterStats);
+            $entityManager->flush();
+ 
+        }
+
+        return $this->render('character_stats/index.html.twig', [
+            'formAddCharacterStats' => $form->createView(),
         ]);
     }
 
