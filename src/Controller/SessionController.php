@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\Session;
 use App\Form\MessageType;
 use App\Form\SessionType;
