@@ -49,6 +49,28 @@ main {
     flex-direction: row;
     height: 94vh;
 }
+form {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
+form>div {
+    display: flex;
+    justify-content: space-between;
+}
+form>div>input:last-child {
+    width: 50%;
+}
+form>div>label {
+    width: 47%;
+    text-align: right;
+}
+form>div:nth-last-child(2) {
+    display: flex;
+    justify-content: end;
+}
+
+
 #main {
     width: 80%;
 }

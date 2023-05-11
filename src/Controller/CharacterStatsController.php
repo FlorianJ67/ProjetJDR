@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Form\CharacterStatsType;
-use Symfony\Bridge\Doctrine\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,7 +37,7 @@ class CharacterStatsController extends AbstractController
  
         }
 
-        return $this->render('character_stats/index.html.twig', [
+        return $this->render('character_stats/add.html.twig', [
             'formAddCharacterStats' => $form->createView(),
         ]);
     }
