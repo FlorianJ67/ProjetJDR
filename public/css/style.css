@@ -40,10 +40,7 @@ header>div:last-child {
 .user:hover {
     transition: 0.2s;
     background-color: var(--colorTwo);
-}
-.user:hover a {
     color: var(--colorThree);
-    transition: 0.2s;
 }
 /* endHeader */
 /* Main */

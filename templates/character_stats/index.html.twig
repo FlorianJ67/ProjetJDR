@@ -3,18 +3,31 @@
 {% block title %}Hello CharacterStatsController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/DevWeb/laragon/www/ProjetJDR/src/Controller/CharacterStatsController.php'|file_link(0) }}">src/Controller/CharacterStatsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/DevWeb/laragon/www/ProjetJDR/templates/character_stats/index.html.twig'|file_link(0) }}">templates/character_stats/index.html.twig</a></code></li>
-    </ul>
-</div>
+{{ form_start(formCharacterStats) }}
+    <div id="ficheInfo">
+        {% for info in CharacterStats.info %}
+            {{ form_widget(formCharacterStats.info.name) }}
+        {% endfor %}
+    </div>
+    <div id="ficheCaracteristique">
+        {% for info in CharacterStats.caracteristique %}
+            {{ form_widget(formCharacterStats.caracteristique.name) }}
+        {% endfor %}
+    </div>
+    <div id="ficheCompetence">
+        {% for info in CharacterStats.competence %}
+            {{ form_widget(formCharacterStats.competence.name) }}
+        {% endfor %}
+    </div>
+    <div id="ficheInventaire">
+        {% for info in CharacterStats.inventaire %}
+            {{ form_widget(formCharacterStats.inventaire.name) }}
+        {% endfor %}
+    </div>
+    <div id="ficheStatsAdditionnel">
+        {% for info in CharacterStats.statsAdditionnel %}
+            {{ form_widget(formCharacterStats.statsAdditionnel.name) }}
+        {% endfor %}
+    </div>
+{{ form_end(formCharacterStats) }}
 {% endblock %}

@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Session;
+use App\Entity\User;
 use App\Form\MessageType;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,10 +16,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SessionController extends AbstractController
 {
     #[Route('/session', name: 'app_session')]
-    public function index(): Response
+    public function index(ManagerRegistry $doctrine, EntityManagerInterface $entityManager, Request $request): Response
     {
+        $user = $this->getUser();
+
+        $sessions = $user->getSessions();
+
+
+
         return $this->render('session/index.html.twig', [
-            'controller_name' => 'SessionController',
+            'sessions' => $sessions,
         ]);
     }
 
@@ -45,8 +53,6 @@ class SessionController extends AbstractController
             return $this->redirectToRoute("info_session", ["id" => $session->getId()]);
 
         }
-
-
         return $this->render('session/info.html.twig', [
             'session' => $session,
             'formAddMessage' => $form->createView(),

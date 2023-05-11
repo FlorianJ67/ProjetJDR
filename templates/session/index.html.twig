@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MessageController!{% endblock %}
+
+{% block body %}
+    {% for session in sessions %}
+    <div>
+        <a href="{{ path('info_session',{'id': session.id}) }}">{{ session.name }}</a>
+    </div>
+    {% endfor %}
+{% endblock %}

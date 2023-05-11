@@ -25,6 +25,10 @@ class Session
     #[ORM\OneToMany(mappedBy: 'session', targetEntity: Message::class)]
     private Collection $messages;
 
+    #[ORM\ManyToOne(inversedBy: 'sessions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $gameMaster = null;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
@@ -85,6 +89,18 @@ class Session
                 $message->setSession(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getGameMaster(): ?User
+    {
+        return $this->gameMaster;
+    }
+
+    public function setGameMaster(?User $gameMaster): self
+    {
+        $this->gameMaster = $gameMaster;
 
         return $this;
     }

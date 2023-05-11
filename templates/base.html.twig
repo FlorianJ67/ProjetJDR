@@ -24,16 +24,10 @@
             </nav>
             <div>
                 {% if app.user %}
-                    <div class="user">
-                        <a href="{{ path('app_logout') }}">se déconnecter</a>
-                    </div>
+                        <a class="user" href="{{ path('app_logout') }}">se déconnecter</a>
                 {% else %}
-                    <div class="user">
-                        <a href="{{ path('app_register') }}">s'inscrire</a>
-                    </div>
-                    <div class="user">
-                        <a href="{{ path('app_login') }}">se connecter</a>
-                    </div>
+                        <a class="user" href="{{ path('app_register') }}">s'inscrire</a>
+                        <a class="user" href="{{ path('app_login') }}">se connecter</a>
                 {% endif %}
             </div>
         </header>
