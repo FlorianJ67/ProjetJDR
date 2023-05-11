@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Session;
 use App\Entity\User;
+use App\Entity\Session;
 use App\Form\MessageType;
-use Doctrine\ORM\EntityManager;
+use App\Form\SessionType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,17 +16,34 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SessionController extends AbstractController
 {
     #[Route('/session', name: 'app_session')]
-    public function index(ManagerRegistry $doctrine, EntityManagerInterface $entityManager, Request $request): Response
+    public function index(ManagerRegistry $doctrine,EntityManagerInterface $entityManager, Request $request): Response
     {
         $user = $this->getUser();
 
-        $sessions = $user->getSessions();
+        if($user) {
+            $sessions = $user->getSessions();
 
+            // Formulaire de création de Session
+            $form = $this->createForm(SessionType::class);
+            $form->handleRequest($request);
+            
+            if($form->isSubmitted() && $form->isValid()){
+                $session = $form->getData();
+                $entityManager = $doctrine->getManager();
 
+                $session->setGameMaster($user);
 
-        return $this->render('session/index.html.twig', [
-            'sessions' => $sessions,
-        ]);
+                $entityManager->persist($session);
+                $entityManager->flush();
+     
+            }
+            return $this->render('session/index.html.twig', [
+                'sessions' => $sessions,
+                'formAddSession' => $form->createView(),
+            ]);    
+        }
+        // Si l'utilisateur n'est pas connecter rediriger sur la page de connexion
+        return $this->redirectToRoute('app_login');
     }
 
     #[Route('/session/{id}', name: 'info_session')]

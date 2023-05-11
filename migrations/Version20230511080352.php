@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230510094844 extends AbstractMigration
+final class Version20230511080352 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,14 +20,14 @@ final class Version20230510094844 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE character_stats ADD info JSON NOT NULL, ADD caracteristique JSON DEFAULT NULL, ADD competence JSON DEFAULT NULL, ADD inventaire JSON DEFAULT NULL, ADD stats_additionnel JSON DEFAULT NULL');
-        $this->addSql('ALTER TABLE user ADD pseudo VARCHAR(50) NOT NULL');
+        $this->addSql('ALTER TABLE session ADD CONSTRAINT FK_D044D5D4C1151A13 FOREIGN KEY (game_master_id) REFERENCES `user` (id)');
+        $this->addSql('CREATE INDEX IDX_D044D5D4C1151A13 ON session (game_master_id)');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE character_stats DROP info, DROP caracteristique, DROP competence, DROP inventaire, DROP stats_additionnel');
-        $this->addSql('ALTER TABLE `user` DROP pseudo');
+        $this->addSql('ALTER TABLE session DROP FOREIGN KEY FK_D044D5D4C1151A13');
+        $this->addSql('DROP INDEX IDX_D044D5D4C1151A13 ON session');
     }
 }

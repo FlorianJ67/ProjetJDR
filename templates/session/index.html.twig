@@ -8,4 +8,7 @@
         <a href="{{ path('info_session',{'id': session.id}) }}">{{ session.name }}</a>
     </div>
     {% endfor %}
+    {{ form_start(formAddSession) }}
+        {{ form_row(formAddSession.name) }}
+    {{ form_end(formAddSession) }}
 {% endblock %}
