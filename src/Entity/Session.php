@@ -31,11 +31,25 @@ class Session
     #[ORM\ManyToMany(targetEntity: LienCompetenceCaracteristique::class, mappedBy: 'session')]
     private Collection $lienCompetenceCaracteristiques;
 
+    #[ORM\OneToMany(mappedBy: 'session', targetEntity: CompetenceCharacter::class)]
+    private Collection $competenceCharacters;
+
+    #[ORM\OneToMany(mappedBy: 'session', targetEntity: CaracteristiquePerso::class, orphanRemoval: true)]
+    private Collection $caracteristiquePersos;
+
+    #[ORM\ManyToOne(inversedBy: 'sessions')]
+    private ?CollectionCompetence $collectionCompetence = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sessions')]
+    private ?CollectionCaracteristique $collectionCaracteristique = null;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
         $this->actions = new ArrayCollection();
         $this->lienCompetenceCaracteristiques = new ArrayCollection();
+        $this->competenceCharacters = new ArrayCollection();
+        $this->caracteristiquePersos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -150,6 +164,90 @@ class Session
         if ($this->lienCompetenceCaracteristiques->removeElement($lienCompetenceCaracteristique)) {
             $lienCompetenceCaracteristique->removeSession($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CompetenceCharacter>
+     */
+    public function getCompetenceCharacters(): Collection
+    {
+        return $this->competenceCharacters;
+    }
+
+    public function addCompetenceCharacter(CompetenceCharacter $competenceCharacter): self
+    {
+        if (!$this->competenceCharacters->contains($competenceCharacter)) {
+            $this->competenceCharacters->add($competenceCharacter);
+            $competenceCharacter->setSession($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetenceCharacter(CompetenceCharacter $competenceCharacter): self
+    {
+        if ($this->competenceCharacters->removeElement($competenceCharacter)) {
+            // set the owning side to null (unless already changed)
+            if ($competenceCharacter->getSession() === $this) {
+                $competenceCharacter->setSession(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CaracteristiquePerso>
+     */
+    public function getCaracteristiquePersos(): Collection
+    {
+        return $this->caracteristiquePersos;
+    }
+
+    public function addCaracteristiquePerso(CaracteristiquePerso $caracteristiquePerso): self
+    {
+        if (!$this->caracteristiquePersos->contains($caracteristiquePerso)) {
+            $this->caracteristiquePersos->add($caracteristiquePerso);
+            $caracteristiquePerso->setSession($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaracteristiquePerso(CaracteristiquePerso $caracteristiquePerso): self
+    {
+        if ($this->caracteristiquePersos->removeElement($caracteristiquePerso)) {
+            // set the owning side to null (unless already changed)
+            if ($caracteristiquePerso->getSession() === $this) {
+                $caracteristiquePerso->setSession(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCollectionCompetence(): ?CollectionCompetence
+    {
+        return $this->collectionCompetence;
+    }
+
+    public function setCollectionCompetence(?CollectionCompetence $collectionCompetence): self
+    {
+        $this->collectionCompetence = $collectionCompetence;
+
+        return $this;
+    }
+
+    public function getCollectionCaracteristique(): ?CollectionCaracteristique
+    {
+        return $this->collectionCaracteristique;
+    }
+
+    public function setCollectionCaracteristique(?CollectionCaracteristique $collectionCaracteristique): self
+    {
+        $this->collectionCaracteristique = $collectionCaracteristique;
 
         return $this;
     }

@@ -32,9 +32,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Message::class)]
-    private Collection $messages;
-
     #[ORM\Column(length: 50)]
     private ?string $pseudo = null;
 
@@ -43,7 +40,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->messages = new ArrayCollection();
         $this->sessions = new ArrayCollection();
     }
 
@@ -115,36 +111,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    /**
-     * @return Collection<int, Message>
-     */
-    public function getMessages(): Collection
-    {
-        return $this->messages;
-    }
-
-    public function addMessage(Message $message): self
-    {
-        if (!$this->messages->contains($message)) {
-            $this->messages->add($message);
-            $message->setAuthor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMessage(Message $message): self
-    {
-        if ($this->messages->removeElement($message)) {
-            // set the owning side to null (unless already changed)
-            if ($message->getAuthor() === $this) {
-                $message->setAuthor(null);
-            }
-        }
-
-        return $this;
     }
 
     public function getPseudo(): ?string

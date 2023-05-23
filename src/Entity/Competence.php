@@ -24,9 +24,17 @@ class Competence
     #[ORM\ManyToMany(targetEntity: LienCompetenceCaracteristique::class, mappedBy: 'competence')]
     private Collection $lienCompetenceCaracteristiques;
 
+    #[ORM\OneToMany(mappedBy: 'competence', targetEntity: CompetenceCharacter::class, orphanRemoval: true)]
+    private Collection $competenceCharacters;
+
+    #[ORM\ManyToMany(targetEntity: CollectionCompetence::class, mappedBy: 'competences')]
+    private Collection $collectionCompetences;
+
     public function __construct()
     {
         $this->lienCompetenceCaracteristiques = new ArrayCollection();
+        $this->competenceCharacters = new ArrayCollection();
+        $this->collectionCompetences = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -80,6 +88,63 @@ class Competence
     {
         if ($this->lienCompetenceCaracteristiques->removeElement($lienCompetenceCaracteristique)) {
             $lienCompetenceCaracteristique->removeCompetence($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CompetenceCharacter>
+     */
+    public function getCompetenceCharacters(): Collection
+    {
+        return $this->competenceCharacters;
+    }
+
+    public function addCompetenceCharacter(CompetenceCharacter $competenceCharacter): self
+    {
+        if (!$this->competenceCharacters->contains($competenceCharacter)) {
+            $this->competenceCharacters->add($competenceCharacter);
+            $competenceCharacter->setCompetence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetenceCharacter(CompetenceCharacter $competenceCharacter): self
+    {
+        if ($this->competenceCharacters->removeElement($competenceCharacter)) {
+            // set the owning side to null (unless already changed)
+            if ($competenceCharacter->getCompetence() === $this) {
+                $competenceCharacter->setCompetence(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CollectionCompetence>
+     */
+    public function getCollectionCompetences(): Collection
+    {
+        return $this->collectionCompetences;
+    }
+
+    public function addCollectionCompetence(CollectionCompetence $collectionCompetence): self
+    {
+        if (!$this->collectionCompetences->contains($collectionCompetence)) {
+            $this->collectionCompetences->add($collectionCompetence);
+            $collectionCompetence->addCompetence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCollectionCompetence(CollectionCompetence $collectionCompetence): self
+    {
+        if ($this->collectionCompetences->removeElement($collectionCompetence)) {
+            $collectionCompetence->removeCompetence($this);
         }
 
         return $this;

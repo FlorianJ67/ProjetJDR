@@ -21,7 +21,7 @@ class Message
     private ?\DateTimeInterface $creationDate = null;
 
     #[ORM\ManyToOne(inversedBy: 'messages')]
-    private ?User $author = null;
+    private ?Character $author = null;
 
     #[ORM\ManyToOne(inversedBy: 'messages')]
     #[ORM\JoinColumn(nullable: false)]
@@ -56,12 +56,12 @@ class Message
         return $this;
     }
 
-    public function getAuthor(): ?User
+    public function getAuthor(): ?Character
     {
         return $this->author;
     }
 
-    public function setAuthor(?User $author): self
+    public function setAuthor(?Character $author): self
     {
         $this->author = $author;
 

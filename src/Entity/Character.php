@@ -22,10 +22,18 @@ class Character
     #[ORM\OneToMany(mappedBy: 'perso', targetEntity: Action::class)]
     private Collection $actions;
 
+    #[ORM\OneToMany(mappedBy: 'perso', targetEntity: CompetenceCharacter::class)]
+    private Collection $competenceCharacters;
+
+    #[ORM\OneToMany(mappedBy: 'perso', targetEntity: CaracteristiquePerso::class, orphanRemoval: true)]
+    private Collection $caracteristiquePersos;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
         $this->actions = new ArrayCollection();
+        $this->competenceCharacters = new ArrayCollection();
+        $this->caracteristiquePersos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -84,6 +92,66 @@ class Character
             // set the owning side to null (unless already changed)
             if ($action->getPerso() === $this) {
                 $action->setPerso(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CompetenceCharacter>
+     */
+    public function getCompetenceCharacters(): Collection
+    {
+        return $this->competenceCharacters;
+    }
+
+    public function addCompetenceCharacter(CompetenceCharacter $competenceCharacter): self
+    {
+        if (!$this->competenceCharacters->contains($competenceCharacter)) {
+            $this->competenceCharacters->add($competenceCharacter);
+            $competenceCharacter->setPerso($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetenceCharacter(CompetenceCharacter $competenceCharacter): self
+    {
+        if ($this->competenceCharacters->removeElement($competenceCharacter)) {
+            // set the owning side to null (unless already changed)
+            if ($competenceCharacter->getPerso() === $this) {
+                $competenceCharacter->setPerso(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CaracteristiquePerso>
+     */
+    public function getCaracteristiquePersos(): Collection
+    {
+        return $this->caracteristiquePersos;
+    }
+
+    public function addCaracteristiquePerso(CaracteristiquePerso $caracteristiquePerso): self
+    {
+        if (!$this->caracteristiquePersos->contains($caracteristiquePerso)) {
+            $this->caracteristiquePersos->add($caracteristiquePerso);
+            $caracteristiquePerso->setPerso($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaracteristiquePerso(CaracteristiquePerso $caracteristiquePerso): self
+    {
+        if ($this->caracteristiquePersos->removeElement($caracteristiquePerso)) {
+            // set the owning side to null (unless already changed)
+            if ($caracteristiquePerso->getPerso() === $this) {
+                $caracteristiquePerso->setPerso(null);
             }
         }
 
