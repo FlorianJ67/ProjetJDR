@@ -28,10 +28,14 @@ class Session
     #[ORM\OneToMany(mappedBy: 'session', targetEntity: Action::class, orphanRemoval: true)]
     private Collection $actions;
 
+    #[ORM\ManyToMany(targetEntity: LienCompetenceCaracteristique::class, mappedBy: 'session')]
+    private Collection $lienCompetenceCaracteristiques;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
         $this->actions = new ArrayCollection();
+        $this->lienCompetenceCaracteristiques = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -118,6 +122,33 @@ class Session
             if ($action->getSession() === $this) {
                 $action->setSession(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LienCompetenceCaracteristique>
+     */
+    public function getLienCompetenceCaracteristiques(): Collection
+    {
+        return $this->lienCompetenceCaracteristiques;
+    }
+
+    public function addLienCompetenceCaracteristique(LienCompetenceCaracteristique $lienCompetenceCaracteristique): self
+    {
+        if (!$this->lienCompetenceCaracteristiques->contains($lienCompetenceCaracteristique)) {
+            $this->lienCompetenceCaracteristiques->add($lienCompetenceCaracteristique);
+            $lienCompetenceCaracteristique->addSession($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLienCompetenceCaracteristique(LienCompetenceCaracteristique $lienCompetenceCaracteristique): self
+    {
+        if ($this->lienCompetenceCaracteristiques->removeElement($lienCompetenceCaracteristique)) {
+            $lienCompetenceCaracteristique->removeSession($this);
         }
 
         return $this;
