@@ -25,9 +25,13 @@ class Session
     #[ORM\JoinColumn(nullable: false)]
     private ?User $gameMaster = null;
 
+    #[ORM\OneToMany(mappedBy: 'session', targetEntity: Action::class, orphanRemoval: true)]
+    private Collection $actions;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
+        $this->actions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,6 +89,36 @@ class Session
     public function setGameMaster(?User $gameMaster): self
     {
         $this->gameMaster = $gameMaster;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Action>
+     */
+    public function getActions(): Collection
+    {
+        return $this->actions;
+    }
+
+    public function addAction(Action $action): self
+    {
+        if (!$this->actions->contains($action)) {
+            $this->actions->add($action);
+            $action->setSession($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAction(Action $action): self
+    {
+        if ($this->actions->removeElement($action)) {
+            // set the owning side to null (unless already changed)
+            if ($action->getSession() === $this) {
+                $action->setSession(null);
+            }
+        }
 
         return $this;
     }
