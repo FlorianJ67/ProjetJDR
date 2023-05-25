@@ -7,8 +7,10 @@ use App\Form\MessageType;
 use App\Form\SessionType;
 use App\Form\CompetenceType;
 use App\Form\CaracteristiqueType;
+use App\Form\CollectionCompetenceType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Form\CollectionCaracteristiqueType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -67,6 +69,21 @@ class SessionController extends AbstractController
 
         }
 
+        $collectionCaracteristiqueForm = $this->createForm(CollectionCaracteristiqueType::class);
+        $collectionCaracteristiqueForm->handleRequest($request);
+
+        if($collectionCaracteristiqueForm->isSubmitted() && $collectionCaracteristiqueForm->isValid()){
+
+            $collectionCaracteristique = $collectionCaracteristiqueForm->getData();
+            $entityManager = $doctrine->getManager();
+
+            // prepare
+            $entityManager->persist($collectionCaracteristique);
+            // insert into (execute)
+            $entityManager->flush();
+
+        }
+
         $competenceForm = $this->createForm(CompetenceType::class);
         $competenceForm->handleRequest($request);
 
@@ -82,9 +99,26 @@ class SessionController extends AbstractController
 
         }
 
+        $collectionCompetenceForm = $this->createForm(CollectionCompetenceType::class);
+        $collectionCompetenceForm->handleRequest($request);
+
+        if($collectionCompetenceForm->isSubmitted() && $collectionCompetenceForm->isValid()){
+
+            $collectionCompetence = $collectionCompetenceForm->getData();
+            $entityManager = $doctrine->getManager();
+
+            // prepare
+            $entityManager->persist($collectionCompetence);
+            // insert into (execute)
+            $entityManager->flush();
+
+        }
+
         return $this->render('session/add.html.twig', [
             'formAddSession' => $sessionForm->createView(),
             'formAddCaracteristique' => $caracteristiqueForm->createView(),
+            'formAddCollectionCaracteristique' => $collectionCaracteristiqueForm->createView(),
+            'formAddCollectionCompetence' => $collectionCompetenceForm->createView(),
             'formAddCompetence' => $competenceForm->createView(),
         ]);
     }
