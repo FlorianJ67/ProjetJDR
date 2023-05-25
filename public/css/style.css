@@ -48,11 +48,12 @@ main {
     display: flex;
     flex-direction: row;
     height: 94vh;
+    flex-direction: column;
+    align-items: center;
 }
 form {
     display: flex;
     flex-direction: column;
-    width: 40%;
 }
 form>div {
     display: flex;
@@ -156,3 +157,24 @@ form>div:nth-last-child(2) {
     background-color: rgb(31, 110, 31);
 }
 /* endMain */
+
+/* AddSession */
+#addSession {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin-top: 1%;
+}
+#addSession>div {
+    display: flex;
+    justify-content: space-between;
+    margin: 1% 0;
+}
+#addSession>div>h3 {
+    margin-top: 0;
+}
+#addSession>div>form {
+    width: 60%;
+}
+
+/* endAddSession */

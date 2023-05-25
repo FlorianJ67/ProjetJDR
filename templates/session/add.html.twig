@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MessageController!{% endblock %}
+
+{% block body %}
+<div id="addSession">
+
+    {{ form_start(formAddSession) }}
+    {{ form_end(formAddSession) }}
+
+    <div id="addCaracteristique">
+        <h3>Ajouter une caractéristique:</h3>
+        {{ form_start(formAddCaracteristique) }}
+        {{ form_end(formAddCaracteristique) }}
+    </div>
+    <div id="addCollectionCaracteristique">
+
+    </div>
+
+    <div id="addCompetence">
+        <h3>Ajouter une competence:</h3>
+        {{ form_start(formAddCompetence) }}
+        {{ form_end(formAddCompetence) }}
+    </div>
+    <div id="addCollectionCompetence">
+
+    </div>
+
+    <div id="addLien">
+        <h3>Créer des liens Compétence <-> Caractéristique:</h3>
+        {# {{ form_start(formAddLien) }}
+        {{ form_end(formAddLien) }} #}
+    </div>
+</div>
+{% endblock %}

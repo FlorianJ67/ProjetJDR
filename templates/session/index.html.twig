@@ -8,8 +8,7 @@
         <a href="{{ path('info_session',{'id': session.id}) }}">{{ session.name }}</a>
     </div>
     {% endfor %}
-    {{ form_start(formAddSession) }}
-        {{ form_row(formAddSession.name) }}
-        <a href="{{ path('add_character_stats') }}">Créer un squelette de fiche Personnage</a>
-    {{ form_end(formAddSession) }}
+    <div> 
+        <a href="{{ path('add_session') }}">Créer une Session de jeu de rôle</a>
+    </div>
 {% endblock %}

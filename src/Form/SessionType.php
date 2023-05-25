@@ -3,13 +3,16 @@
 namespace App\Form;
 
 use App\Entity\Session;
-use Doctrine\DBAL\Types\TextType;
-use App\Form\CollectionCompetenceType;
+use App\Entity\CollectionCompetence;
 use Symfony\Component\Form\AbstractType;
+use App\Entity\CollectionCaracteristique;
 use App\Form\CollectionCaracteristiqueType;
+use App\Entity\LienCompetenceCaracteristique;
 use App\Form\LienCompetenceCaracteristiqueType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class SessionType extends AbstractType
@@ -18,9 +21,19 @@ class SessionType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
-            ->add('lienCompetenceCaracteristiques', LienCompetenceCaracteristiqueType::class)
-            ->add('collectionCompetence', CollectionCompetenceType::class)
-            ->add('collectionCaracteristique', CollectionCaracteristiqueType::class)
+
+            ->add('collectionCompetence', EntityType::class, [
+                'class' => CollectionCompetence::class,
+                'choice_label' => 'competence'
+                ])
+            ->add('collectionCaracteristique', EntityType::class, [
+                'class' => CollectionCaracteristique::class,
+                'choice_label' => 'caracteristique'
+                ])
+            ->add('lienCompetenceCaracteristiques', EntityType::class, [
+                'class' => LienCompetenceCaracteristique::class,
+                'choice_label' => 'lienCaracteristiqueCompetence'
+            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Créer'
             ])

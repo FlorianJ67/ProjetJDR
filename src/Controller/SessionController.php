@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Session;
 use App\Form\MessageType;
 use App\Form\SessionType;
+use App\Form\CompetenceType;
+use App\Form\CaracteristiqueType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,34 +17,76 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SessionController extends AbstractController
 {
     #[Route('/session', name: 'app_session')]
-    public function index(ManagerRegistry $doctrine,EntityManagerInterface $entityManager, Request $request): Response
+    public function index(EntityManagerInterface $entityManager, Request $request): Response
     {
         $user = $this->getUser();
 
         if($user) {
             $sessions = $user->getSessions();
-
-            // Formulaire de création de Session
-            $form = $this->createForm(SessionType::class);
-            $form->handleRequest($request);
             
-            if($form->isSubmitted() && $form->isValid()){
-                $session = $form->getData();
-                $entityManager = $doctrine->getManager();
-
-                $session->setGameMaster($user);
-
-                $entityManager->persist($session);
-                $entityManager->flush();
-     
-            }
             return $this->render('session/index.html.twig', [
                 'sessions' => $sessions,
-                'formAddSession' => $form->createView(),
             ]);    
         }
         // Si l'utilisateur n'est pas connecter rediriger sur la page de connexion
         return $this->redirectToRoute('app_login');
+    }
+
+    #[Route('/session/add', name: 'add_session')]
+    public function add(ManagerRegistry $doctrine, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $sessionForm = $this->createForm(SessionType::class);
+        $sessionForm->handleRequest($request);
+
+        if($sessionForm->isSubmitted() && $sessionForm->isValid()){
+
+            $session = $sessionForm->getData();
+            $entityManager = $doctrine->getManager();
+
+            $session->setGameMaster($user);
+            // prepare
+            $entityManager->persist($session);
+            // insert into (execute)
+            $entityManager->flush();
+
+            return $this->redirectToRoute("info_session", ["id" => $session->getId()]);
+        }
+
+        $caracteristiqueForm = $this->createForm(CaracteristiqueType::class);
+        $caracteristiqueForm->handleRequest($request);
+
+        if($caracteristiqueForm->isSubmitted() && $caracteristiqueForm->isValid()){
+
+            $caracteristique = $caracteristiqueForm->getData();
+            $entityManager = $doctrine->getManager();
+
+            // prepare
+            $entityManager->persist($caracteristique);
+            // insert into (execute)
+            $entityManager->flush();
+
+        }
+
+        $competenceForm = $this->createForm(CompetenceType::class);
+        $competenceForm->handleRequest($request);
+
+        if($competenceForm->isSubmitted() && $competenceForm->isValid()){
+
+            $competence = $competenceForm->getData();
+            $entityManager = $doctrine->getManager();
+
+            // prepare
+            $entityManager->persist($competence);
+            // insert into (execute)
+            $entityManager->flush();
+
+        }
+
+        return $this->render('session/add.html.twig', [
+            'formAddSession' => $sessionForm->createView(),
+            'formAddCaracteristique' => $caracteristiqueForm->createView(),
+            'formAddCompetence' => $competenceForm->createView(),
+        ]);
     }
 
     #[Route('/session/{id}', name: 'info_session')]

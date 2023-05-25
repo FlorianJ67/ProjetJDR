@@ -6,6 +6,7 @@ use App\Entity\Competence;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class CompetenceType extends AbstractType
 {
@@ -14,8 +15,6 @@ class CompetenceType extends AbstractType
         $builder
             ->add('name')
             ->add('competenceValue')
-            ->add('lienCompetenceCaracteristiques')
-            ->add('collectionCompetences')
             ->add('submit', SubmitType::class, [
                 'label' => 'Créer'
             ])
