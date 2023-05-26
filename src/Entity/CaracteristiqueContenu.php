@@ -102,6 +102,15 @@ class CaracteristiqueContenu
 
     public function __toString()
     {
-        return "bonjou";
+        $carac = "";
+
+        if ($this->isIsMain()) {
+            $carac .= "[Main]" ;
+        }
+        $carac .= strtoupper($this->caracteristique);
+        if ($this->valueMax){
+            $carac .= " Max: " . $this->valueMax;
+        }
+        return $carac;
     }
 }
