@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\CaracteristiquePerso;
+use App\Entity\CaracteristiqueContenu;
 use Doctrine\Common\Collections\Collection;
 use App\Entity\LienCompetenceCaracteristique;
 use App\Repository\CaracteristiqueRepository;

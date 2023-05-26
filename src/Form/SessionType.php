@@ -6,9 +6,7 @@ use App\Entity\Session;
 use App\Entity\CollectionCompetence;
 use Symfony\Component\Form\AbstractType;
 use App\Entity\CollectionCaracteristique;
-use App\Form\CollectionCaracteristiqueType;
 use App\Entity\LienCompetenceCaracteristique;
-use App\Form\LienCompetenceCaracteristiqueType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,10 +24,10 @@ class SessionType extends AbstractType
                 'class' => CollectionCompetence::class,
                 'choice_label' => 'competence'
                 ])
-            ->add('collectionCaracteristique', EntityType::class, [
-                'class' => CollectionCaracteristique::class,
-                'choice_label' => 'caracteristique'
-                ])
+            // ->add('collectionCaracteristique', EntityType::class, [
+            //     'class' => CollectionCaracteristique::class,
+            //     'choice_label' => 'caracteristiqueContenus'
+            //     ])
             ->add('lienCompetenceCaracteristiques', EntityType::class, [
                 'class' => LienCompetenceCaracteristique::class,
                 'choice_label' => 'lienCaracteristiqueCompetence'

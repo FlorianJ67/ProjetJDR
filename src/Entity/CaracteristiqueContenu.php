@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\CaracteristiqueContenuRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Caracteristique;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\CollectionCaracteristique;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use App\Repository\CaracteristiqueContenuRepository;
 
 #[ORM\Entity(repositoryClass: CaracteristiqueContenuRepository::class)]
 class CaracteristiqueContenu
@@ -96,5 +98,10 @@ class CaracteristiqueContenu
         $this->collectionCaracteristiques->removeElement($collectionCaracteristique);
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return "bonjou";
     }
 }

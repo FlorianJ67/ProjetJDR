@@ -8,6 +8,7 @@ use App\Form\SessionType;
 use App\Form\CompetenceType;
 use App\Form\CaracteristiqueType;
 use App\Form\CollectionCompetenceType;
+use App\Form\CaracteristiqueContenuType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Form\CollectionCaracteristiqueType;
@@ -69,6 +70,21 @@ class SessionController extends AbstractController
 
         }
 
+        $caracteristiqueContenuForm = $this->createForm(CaracteristiqueContenuType::class);
+        $caracteristiqueContenuForm->handleRequest($request);
+
+        if($caracteristiqueContenuForm->isSubmitted() && $caracteristiqueContenuForm->isValid()){
+
+            $caracteristiqueContenu = $caracteristiqueContenuForm->getData();
+            $entityManager = $doctrine->getManager();
+
+            // prepare
+            $entityManager->persist($caracteristiqueContenu);
+            // insert into (execute)
+            $entityManager->flush();
+
+        }
+
         $collectionCaracteristiqueForm = $this->createForm(CollectionCaracteristiqueType::class);
         $collectionCaracteristiqueForm->handleRequest($request);
 
@@ -117,6 +133,7 @@ class SessionController extends AbstractController
         return $this->render('session/add.html.twig', [
             'formAddSession' => $sessionForm->createView(),
             'formAddCaracteristique' => $caracteristiqueForm->createView(),
+            'formAddCaracteristiqueContenu' => $caracteristiqueContenuForm->createView(),
             'formAddCollectionCaracteristique' => $collectionCaracteristiqueForm->createView(),
             'formAddCollectionCompetence' => $collectionCompetenceForm->createView(),
             'formAddCompetence' => $competenceForm->createView(),

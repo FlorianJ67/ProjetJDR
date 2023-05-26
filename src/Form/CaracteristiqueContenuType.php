@@ -2,10 +2,12 @@
 
 namespace App\Form;
 
-use App\Form\CaracteristiqueType;
+
+use App\Entity\Caracteristique;
 use App\Entity\CaracteristiqueContenu;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -21,9 +23,11 @@ class CaracteristiqueContenuType extends AbstractType
                 'required' => false
             ])
             ->add('valueMax', IntegerType::class, [
-                'label' => 'Valeur Max (optionel)'
+                'label' => 'Valeur Max (optionel)',
+                'required' => false
             ])
-            ->add('caracteristique', CaracteristiqueType::class, [
+            ->add('caracteristique', EntityType::class, [
+                'class' => Caracteristique::class,
                 'label' => 'Caractéristique :'
             ])
             ->add('submit', SubmitType::class, [

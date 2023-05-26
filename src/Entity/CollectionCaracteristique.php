@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\CollectionCaracteristiqueRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Session;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\CaracteristiqueContenu;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use App\Repository\CollectionCaracteristiqueRepository;
 
 #[ORM\Entity(repositoryClass: CollectionCaracteristiqueRepository::class)]
 class CollectionCaracteristique
@@ -14,9 +16,6 @@ class CollectionCaracteristique
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column]
-    private ?bool $isMain = null;
 
     #[ORM\ManyToMany(targetEntity: CaracteristiqueContenu::class, mappedBy: 'collectionCaracteristiques')]
     private Collection $caracteristiqueContenus;
@@ -90,5 +89,9 @@ class CollectionCaracteristique
         }
 
         return $this;
+    }
+    public function __toString() 
+    {
+        return $this->caracteristiqueContenus;
     }
 }
